@@ -224,6 +224,7 @@
         $('img').has('#show12')
         var oLi1 = document.getElementById("show1");
         var oLi2 = document.getElementById("show12");
+        var oLi3 = document.getElementById("show6");
         var oline = $("form div div")
         oline.has(".habit").siblings().css({ "white-space": "nowrap"})
         function fnSubmit(){
@@ -263,6 +264,7 @@
             oLi2.src = oImageList[index2];  
         }
         setInterval(fnChangePhoto, 1000, oLi1)
+        setInterval(fnChangePhoto, 1000, oLi3)
     </script>
 </body>
 </html>
