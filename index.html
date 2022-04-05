@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test-html</title>
     <style>
-        body,ul,ol{
+        body,ul{
             margin: 0px;
             padding: 0px;
             border: 0px;
@@ -22,7 +22,7 @@
         .row1 .colum1-2{
             width: 392px;
             height: 300px;
-            float: left;
+            float: right;
             background-image: url('image/back.png');
         }
         .ygap{margin-top: 8px;}
@@ -42,7 +42,7 @@
             background-image:url("image/back2.jpg");
             float: left;
         }
-        ul,ol{list-style: none;} 
+        ul{list-style: none;} 
         form{position: absolute;}
         .row4 li{
             height: 192px;
@@ -57,18 +57,22 @@
         .colum3-2 img{max-width: 328px; max-height: 200px;}
         .colum3-1 img:hover{width: 324px; height: 196px;}
         .colum3-2 img:hover{width: 324px; height: 196px;}
-        .row1 li{
-            width: 170px;
-            height: 28px;
-            float: left;     
+        form div div div{
+            width: 160px;
+            height: 28px;  
+            text-align: center; 
+            vertical-align:middle;
+            display: inline-block;
         }
-        ol .habit{height: 40px;}
-        label,.button{margin-left: 50px;} 
+        /* form div div{
+            white-space: nowrap;
+        } */
+        div .habit{height:40px;} 
         form label{ 
-            margin-top: 35px;
+            line-height: 28px;
             font-family: "Microsoft Yahei";
             font-size: 16px;
-            font-weight: bold;
+            font-weight: bold;  
             color: coral;
         }
         form label:hover{
@@ -104,50 +108,73 @@
             <div class="colum1-2 xgap">
                 <form id="form" action="http://znxznx.nat300.top" method="post">
                     <div>
-                        <ol>
-                            <li><label>用户名:</label></li>
-                            <li>
+                        <!-- 第1行 -->
+                        <div>
+                            <div><label>用户名:</label></div>
+                            <div>
                                 <input type="text" name="username" style="width:100px; height:20px; border-radius:5px;" placeholder = '请输入用户名'>
-                            </li>
-                            <li><label>用户密码：</label></li>
-                            <li>
+                            </div>
+                        </div>
+                        <!-- 第2行 -->
+                        <div>
+                            <div><label>用户密码：</label></div>
+                            <div>
                                 <input type="password" name="password" style="width:100px; height:20px; border-radius:5px;"placeholder = '请输入密码'>
-                            </li>
-                            <li><label>性别：</label></li>
-                            <li class="fonts">
+                            </div>
+                        </div>
+                        <!-- 第3行 -->
+                        <div>
+                            <div><label>性别：</label></div>
+                            <div class="fonts">
                                 <input type="radio" name="gender" value="0">男 
                                 <input type="radio" name="gender" value="1">女
-                            </li>
-                            <li class="habit"><label>爱好：</label></li>
-                            <li class="habit fonts">
+                            </div>
+                        </div>
+                        <!-- 第4行 -->
+                        <div>
+                            <div class="habit"><label>爱好：</label></div>
+                            <div class="habit fonts">
                                 <input type="checkbox" name="habit" value="reading">读书 
                                 <input type="checkbox" name="habit" value="walking">跑步
                                 <input type="checkbox" name="habit" value="watching movie">看电影
                                 <input type="checkbox" name="habit" value="play game">打游戏
                                 <input type="checkbox" name="habit" value="swiming">游泳 
                                 <input type="checkbox" name="habit" value="table ball">桌球
-                            </li>
-                            <li> <label>照片：</label></li>
-                            <li><input class="fonts" type="file" name="photo"></li>
-                            <li><label>自我简介：</label></li>
-                            <li>
+                            </div>
+                        </div>
+                        <!-- 第5行 -->
+                        <div>
+                            <div> <label>照片：</label></div>
+                            <div><input class="fonts" type="file" name="photo"></div>
+                        </div>
+                        <!-- 第6行 -->
+                        <div>
+                            <div><label>自我简介：</label></div>
+                            <div>
                                 <textarea name="self_introduce" rows="2" cols="15" style="border-radius:5px;" placeholder = '自我介绍一下吧'></textarea>
-                            </li>
-                            <li><label style="margin-top:10px;">所在地：</label></li>
-                            <li>
+                            </div>
+                        </div>
+                        <!-- 第7行 -->
+                        <div>
+                            <div><label style="margin-top:10px;">所在地：</label></div>
+                            <div>
                                 <select name="location" style="margin-top: 8px;">
                                     <option value="beijing">北京</option>
                                     <option value="shenzhen">深圳</option>
                                     <option value="shanghai">上海</option>
                                     <option value="wuhan">武汉</option>
                                 </select>   
-                            </li>
-                            <li>
+                            </div>
+                        </div>
+                        <!-- 第8行 -->
+                        <div>
+                            <div>
                                 <input class="button" type="submit" style="width:100px; height: 30px;margin-top: 8px; border-radius:5px;" onclick=fnSubmit()>
-                            </li>
-                            <li><input type="reset" style="width:100px; height: 30px;margin-top: 8px; border-radius:5px;"></li>
-                            <div class="clear"></div>
-                        </ol>
+                            </div>
+                            <div><input type="reset" style="width:100px; height: 30px;margin-top: 8px; border-radius:5px;">
+                            </div>
+                        </div>
+                            
                     </div>
                 </form>
             </div>
@@ -197,6 +224,8 @@
         $('img').has('#show12')
         var oLi1 = document.getElementById("show1");
         var oLi2 = document.getElementById("show12");
+        var oline = $("form div div")
+        oline.has(".habit").siblings().css({ "white-space": "nowrap"})
         function fnSubmit(){
             var oUserName = document.getElementById("form");
             var username = oUserName.username.value;
