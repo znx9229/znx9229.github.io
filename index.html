@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test-html-znx</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <style>
         body,ul{
             margin: 0px;
@@ -57,14 +57,14 @@
         .colum3-2 img{max-width: 328px; max-height: 200px;}
         .colum3-1 img:hover{width: 324px; height: 196px;}
         .colum3-2 img:hover{width: 324px; height: 196px;}
-/*         form div div div{
+        form div div div{
             width: 160px;
             height: 28px;  
             text-align: center; 
             vertical-align:middle;
             display: inline-block;
-        } */
-        div .habit{width: 160px;height:40px;text-align: center; vertical-align:middle;} 
+        }
+        div .habit{height:40px;vertical-align:middle;} 
         form label{ 
             line-height: 28px;
             font-family: "Microsoft Yahei";
@@ -222,7 +222,7 @@
         var oLi1 = document.getElementById("show6");
         var oLi2 = document.getElementById("show12");
         var oline = $("form div div")
-        oline.has(".habit").siblings().css({ "white-space": "nowrap","width": "160px","height": "28px", "text-align": "center","vertical-align":"middle","display":"inline-block"});
+        oline.has(".habit").siblings().css({ "white-space": "nowrap"});
         function fnSubmit(){
             var oUserName = document.getElementById("form");
             var username = oUserName.username.value;
