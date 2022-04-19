@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'icomoon';
+    src:  url('../fonts/icomoon.eot?rolvny');
+    src:  url('../fonts/icomoon.eot?rolvny#iefix') format('embedded-opentype'),
+      url('../fonts/icomoon.ttf?rolvny') format('truetype'),
+      url('../fonts/icomoon.woff?rolvny') format('woff'),
+      url('../fonts/icomoon.svg?rolvny#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+*{
+    margin: 0;
+    padding: 0;
+}
+
+i{
+    font-family: 'icomoon';
+    font-style: normal;
+    user-select:none;
+}
+#loginpage{
+    width: 1600px;
+    height: 1067px;
+}
+
+#logwidow{
+    position: fixed;  
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 440px;
+    height: 550px;
+    background-color: rgba(219, 225, 225, 0.4);
+    border-radius: 50px;
+    box-shadow: 0px 0px 20px gray inset;
+    box-sizing: border-box;
+    padding: 50px;
+
+}
+#logwidow:hover{
+    box-shadow: 0px 0px 20px gray;
+}
+form{
+    text-align: center;
+    font-size: 15px;
+    font-family: Microsoft YaHe;
+}
+form div{
+    margin-top: 30px;
+}
+.textbox{
+    width: 200px;
+    height: 30px;
+    background-color: transparent;
+    border: 5px solid gray;
+}
+#face{
+    font-size: 50px;
+    color: black;
+}
+button{
+    width:100px;
+    height: 50px;
+    margin-top: 30px;
+    background-color: rgba(60, 210, 60, 0.7);
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    border-radius:15px;
+}
+button:hover{
+    cursor: pointer;
+}
+::-webkit-input-placeholder { 
+    color: black;
+    font-size: 10px;
+    font-weight: 500;
+}
