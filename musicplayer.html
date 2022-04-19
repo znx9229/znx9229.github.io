@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐播放网页-api测试</title>
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="css/musicplayer.css">
+</head>
+<body>
+    <div id="musicplayer">
+        <div id="top">
+            <!-- <div>
+                <span></span><span>歌曲</span><span>歌手</span><span>专辑</span>
+            </div> -->
+            <input v-model="search" @keyup.enter="searchsong" type="text" placeholder="搜索歌曲" id="searchbox">
+        </div>
+        <div id="left">
+            <ul>
+                <li v-for="song in findsonglist">
+                    <div id="play" @click="playmusic(song.id)" title="播放歌曲"></div> 
+                    <div title="歌曲名称">《{{song.name}}》</div>
+                    <div title="歌手名"><span> </span>{{song.artists[0].name}}</div>
+                    <!-- 时长:{{song.duration/1000}}s -->
+                    <div title="专辑名"><span> </span>{{song.album.name}}</div>
+                    <div v-show="!song.mvid==0" title="播放MV"></div>
+                </li>
+            </ul>
+        </div>
+        <div id="middle">
+            <div id="middletop">
+                <img :src="songimg" alt="歌曲图片加载异常">
+            </div>
+            <div id="middlebottom">
+                <!-- <audio id="mp3Btn" controls autoplay><source :src="url" type="audio/mpeg" /></audio> -->
+                <audio :src="url" controls autoplay loop></audio>
+            </div>
+            
+        </div>     
+    </div>
+</body>
+<script>
+    var a =new Vue({
+        el:"#musicplayer",
+        data:{
+            url:"",
+            search:"",
+            findsonglist:[],
+            songimg:"logo/test.png"
+        },
+        methods:{
+            searchsong:function(){
+                var that = this;
+                axios.get("https://autumnfish.cn/search?keywords="+this.search).then(function(response){
+                    console.log(response);
+                    // 获取关键词的歌曲对象列表
+                    // 用变量that代替this，或者用指针函数（因为axios回调函数有自己上下文，this不再指代vue对象）
+                    that.findsonglist = response.data.result.songs;
+                    // console.log(that.findsonglist);
+               },function(error){});
+            },
+            playmusic:function(songid){
+                console.log(songid);
+                var that = this;
+                axios.get("https://autumnfish.cn/song/url?id="+songid).then(function(response){
+                    // console.log(response);
+                    // 获取对应ID的歌曲的播放URL
+                    that.url = response.data.data[0].url;
+                    console.log(that.url);                   
+               },function(error){});
+               axios.get("https://autumnfish.cn/song/detail?ids="+songid).then(function(response){
+                    // console.log(response);
+                    // 获取对应ID歌曲图片URL
+                    that.songimg = response.data.songs[0].al.picUrl;
+                    console.log(response.data.songs[0].al.picUrl)
+               },function(error){});
+            }
+            
+        },
+    })  
+</script>
+</html>
