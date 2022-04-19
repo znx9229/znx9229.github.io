@@ -1,0 +1,153 @@
+@font-face {
+    font-family: 'icomoon';
+    src:  url('../fonts/icomoon.eot?rolvny');
+    src:  url('../fonts/icomoon.eot?rolvny#iefix') format('embedded-opentype'),
+      url('../fonts/icomoon.ttf?rolvny') format('truetype'),
+      url('../fonts/icomoon.woff?rolvny') format('woff'),
+      url('../fonts/icomoon.svg?rolvny#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+*{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style-type: none;
+}
+#musicplayer{
+    width: 800px;
+    height: 500px;
+    margin: 100px auto;
+}
+#top{
+    height:60px;
+    background-color: rgba(127, 255, 212,1);
+    text-align: center;
+}
+#searchbox{
+    width:300px;
+    height: 40px;
+    margin: 10px auto;  
+}
+#left{
+    float: left;
+    width: 500px;
+    height: 440px;
+    background-image: url("../logo/left-bg.jpg");
+    overflow: scroll;
+    overflow-x:hidden;
+}
+#left::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+#middle{
+    float: left;
+    width: 300px;
+    height: 440px;   
+}
+#middletop{
+    position: relative;
+    height: 300px;
+    background-color: rgba(0, 255, 127, 0.5);
+    text-align: center;
+}
+#middlebottom{
+    width: 100%;
+    height: 140px;
+    /* background-color: rgba(138, 43, 226, 0.5); */
+    background-image: url("../logo/dog.jpg");
+}
+audio{
+    width: 300px;
+    height: 100px;
+    /* border: 2px solid rgba(0, 255, 127, 0.5); */
+}
+img{
+    width:300px
+}
+ul li{
+    text-align: left;
+    border-bottom: 1px solid gray;
+    vertical-align: middle;
+
+}
+
+li div+div{
+    width: 120px;
+}
+li div:last-child{
+    width:50px;
+    text-align: center;
+}
+li div:last-child:hover{
+    cursor: pointer;
+}
+
+li div:nth-child(2){
+    font-size: 15px;
+    font-weight: 700;
+}
+#play{
+    width:50px;
+    color: coral;
+    font-size: 20px;
+    text-align: center;
+}
+#play:hover{
+    cursor: pointer;
+}
+li div{
+    float: left;
+    font-family:Microsoft YaHei ,'icomoon';
+    text-align: left;
+    overflow: hidden;
+    color: aliceblue;
+}
+li div span{
+    font-family:Microsoft YaHei ,'icomoon';
+    color: black;
+    font-size: 20px;
+}
+li::after{
+    content: "";
+    clear: both;
+    display:block;
+}
+
+#middletop img{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+/* audio::-webkit-media-controls-panel{
+    width: 300px;
+    border-radius: 0;
+} */
+/* audio::-webkit-media-controls-play-button
+
+audio::-webkit-media-controls-timeline-container
+
+audio::-webkit-media-controls-current-time-display
+
+audio::-webkit-media-controls-time-remaining-display
+
+audio::-webkit-media-controls-timeline
+
+audio::-webkit-media-controls-volume-slider-container
+
+audio::-webkit-media-controls-volume-slider
+
+audio::-webkit-media-controls-seek-back-button
+
+audio::-webkit-media-controls-seek-forward-button
+
+audio::-webkit-media-controls-fullscreen-button
+
+audio::-webkit-media-controls-rewind-button
+
+audio::-webkit-media-controls-return-to-realtime-button
+
+audio::-webkit-media-controls-toggle-closed-captions-button */
