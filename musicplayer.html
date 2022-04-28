@@ -13,10 +13,8 @@
 <body>
     <div id="musicplayer">
         <div id="top">
-            <!-- <div>
-                <span></span><span>歌曲</span><span>歌手</span><span>专辑</span>
-            </div> -->
-            <input v-model="search" @keyup.enter="searchsong" type="text" placeholder="搜索歌曲" id="searchbox">
+            <input v-model.trim="search"  type="text" placeholder="搜索歌曲" id="searchbox">
+            <span @click="searchsong"></span>
         </div>
         <div id="left">
             <ul>
@@ -26,9 +24,10 @@
                     <div title="歌手名"><span> </span>{{song.artists[0].name}}</div>
                     <!-- 时长:{{song.duration/1000}}s -->
                     <div title="专辑名"><span> </span>{{song.album.name}}</div>
-                    <div v-show="!song.mvid==0" title="播放MV"></div>
+                    <div v-show="!song.mvid==0" title="播放MV" @click="playmv(song.mvid)"></div>
                 </li>
             </ul>
+        
         </div>
         <div id="middle">
             <div id="middletop">
@@ -36,47 +35,117 @@
             </div>
             <div id="middlebottom">
                 <!-- <audio id="mp3Btn" controls autoplay><source :src="url" type="audio/mpeg" /></audio> -->
-                <audio :src="url" controls autoplay loop></audio>
-            </div>
-            
-        </div>     
+                <audio :src="url" ref="audio" controls loop></audio>
+            </div>    
+        </div> 
+        <video :src="mvurl" v-if="mvflag" controls autoplay></video>
+        <span id="closemv" v-if="mvflag" @click="closemv"></span>
+       
     </div>
 </body>
 <script>
+    var audio = document.querySelector("audio");
+    var domsrc = audio.src;
+    console.log("audio初始DOM:");
+    console.log(audio);
+    console.log(`audio的初始DOM中src属性为${domsrc}`);
+    console.log("分割线----------------");
     var a =new Vue({
         el:"#musicplayer",
         data:{
             url:"",
             search:"",
             findsonglist:[],
-            songimg:"logo/test.png"
+            songimg:"logo/test.png",
+            mvurl:"",
+            mvflag:false,
         },
         methods:{
-            searchsong:function(){
-                var that = this;
-                axios.get("https://autumnfish.cn/search?keywords="+this.search).then(function(response){
-                    console.log(response);
+            searchsong(){
+                if(this.search==''){
+                    alert("请输入内容")
+                }else{
+                    console.log(`搜索输入内容为：${this.search}`);
+                    axios.get("https://autumnfish.cn/search?keywords="+this.search).then(response => {
+                    // console.log(response);
                     // 获取关键词的歌曲对象列表
-                    // 用变量that代替this，或者用指针函数（因为axios回调函数有自己上下文，this不再指代vue对象）
-                    that.findsonglist = response.data.result.songs;
-                    // console.log(that.findsonglist);
-               },function(error){});
+                    // 用指针函数（不用指针函数的话，axios回调函数有自己上下文，this不再指代vue对象）
+                    this.findsonglist = response.data.result.songs;
+                    console.log(this.findsonglist);
+                    console.log("以上为搜索过程log,分割线----------------")},function(error){});
+                }    
             },
-            playmusic:function(songid){
-                console.log(songid);
-                var that = this;
-                axios.get("https://autumnfish.cn/song/url?id="+songid).then(function(response){
+            playmusic(songid){
+                // console.log(songid);
+                axios.get("https://autumnfish.cn/song/url?id="+songid).then(response => {
                     // console.log(response);
                     // 获取对应ID的歌曲的播放URL
-                    that.url = response.data.data[0].url;
-                    console.log(that.url);                   
+                    this.url = response.data.data[0].url; 
+
+                    // // 第一种方式，不用vue，重新获取audio,操作DOM
+                    // // 因为vue的url数据改变，但是对audio的dom的更新异步
+                    // // 此时audio的src还未更新,直接执行audio.play()会抛出异常
+                    // // audio.play()  
+                    // 解决办法:使用vue的$nextTick方法，
+                    // this.$nextTick(() =>{
+                    //     audio = document.querySelector("audio");
+                    //     audio.play(); 
+                    //     console.log(`DOM更新后重写获取后的audioDOM为:`);
+                    //     console.log(audio);
+                    //     domsrc = audio.src;
+                    //     console.log(`更新获取audio的DOM中src属性为${domsrc}`); 
+                    //     console.log("更新DOM完成,分割线----------------");
+                    // });
+                    // // audio = document.querySelector("audio");
+                    // // console.log(`获取audioDOM为:`);
+                    // // console.log(audio);
+                    // // 此时属性有问题,因为还未完全更新DOM
+                    // // domsrc = audio.src;
+                    // // console.log(`获取audio的DOM中src属性为${domsrc}`); 
+                    // console.log("以上为播放歌曲过程log,分割线----------------");
+
+                    // 第二种方式，使用vue来操作audio的DOM
+                    // 解决vue更新DOM异步的问题：b、$nextTick
+                    this.$nextTick(() =>{
+                        // 使用vue操作DOM，this.$refs.audio可以找到当前vue实例的视图下的ref属性为audio的DOM
+                        // 这再用audio这个DOM的play方法播放歌曲
+                        this.$refs.audio.play(); 
+                        audio = document.querySelector("audio");
+                        console.log(`重新获取后的audioDOM为:`);
+                        console.log(audio);
+                        domsrc = audio.src;
+                        console.log(`更新获取audio的DOM中src属性为${domsrc}`);  
+                        console.log("以上为播放歌曲过程log,分割线----------------"); 
+                    });
+
+                    
                },function(error){});
-               axios.get("https://autumnfish.cn/song/detail?ids="+songid).then(function(response){
+               
+                axios.get("https://autumnfish.cn/song/detail?ids="+songid).then(response => {
                     // console.log(response);
                     // 获取对应ID歌曲图片URL
-                    that.songimg = response.data.songs[0].al.picUrl;
-                    console.log(response.data.songs[0].al.picUrl)
+                    this.songimg = response.data.songs[0].al.picUrl;
+                    // console.log(response.data.songs[0].al.picUrl);
                },function(error){});
+            },
+            playmv(mvid){
+                this.mvflag = true,
+                axios.get("https://autumnfish.cn/mv/url?id="+mvid).then(response => {
+                    console.log(response);
+                    // 获取对应mv的URL
+                    this.mvurl = response.data.data.url;           
+               },function(error){});
+                // 第一种方法，直接操作DOM
+                // audio = document.querySelector("audio");
+                // console.log(audio);
+                // audio.pause()
+                // 第二种方法,使用vue操作DOM，this.$refs.audio可以找到当前vue实例的视图下的ref属性为audio的DOM
+                // 再用audio这个DOM的pause方法暂停歌曲
+                this.$refs.audio.pause();
+                console.log("以上为播放mv过程log,分割线----------------")
+            },
+            closemv(){
+                this.mvflag = false;
             }
             
         },
