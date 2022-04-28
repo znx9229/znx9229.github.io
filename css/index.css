@@ -24,7 +24,7 @@ h3{
 }
 p{
     line-height: 25px;
-    font-family: Microsoft YaHei;
+    font-family:  'icomoon',Microsoft YaHei;
 }
 .w{
     width: 1400px;
@@ -79,7 +79,7 @@ i{
 .top a{
     text-decoration: none;
     color: gray;
-    font-size: 20px;
+    font-size: 25px;
 }
 #search,#store,#menu{
     position: relative;
@@ -91,7 +91,8 @@ i{
     vertical-align: middle;
 }
 .top a:hover{
-    color: black;
+    color: red;
+    font-weight: 700;
     text-decoration: underline;
 }
 #search-text{
@@ -106,10 +107,13 @@ i{
 }
 #store-list{
     position: absolute;
+    overflow-y: scroll;
     right: 0;
     top: 80px;
     visibility: hidden;
-    width: 300px;
+    width: 470px;
+    min-height: 120px;
+    max-height: 500px;
     background-color:#f6f6f6 ;
     border: 2px solid gray;    
     line-height: 30px;  
@@ -117,25 +121,82 @@ i{
     font-family: "Microsoft YaHei";
     text-align: center;
     z-index: 2;
-}  
+} 
+#storelist-head{
+    width: 450px;
+    height: 50px;
+    background-color: #eeeced; 
+}
+#storelist-head p{
+   line-height: 50px;
+   color: orange;
+   font-weight: 800;
+   font-size: 25px;
+   font-family: "Micrsoft YaHei";
+
+}
+#cart p{
+    margin-top: 18px;
+    font-weight: 700;
+    font-size: 15px; ;
+}
+#store-list::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+} 
 #store-list div{
     float: left;
     margin: 10px;
     line-height: 33px;   
 }
+#store ul img{
+    width:150px;
+}
+#store #cart i{
+    color: red;
+    font-weight: 700;
+    font-size: 20px; ;
+    margin-left: 0;
+    line-height: 2em;
+}
+#store #cart i:hover{
+    cursor: pointer;
+}
 #store-list .storeproduct{
-    width: 150px; 
-    height: 100px;
+    width: 280px; 
+    height: 150px;
+    /* box-sizing: border-box;
+    border: 1px solid black; */
+    text-align: center;
+    background-color:#eeeced ;
+    
 }
 #store-list #totalproduct{
-    width: 250px; 
-    height: 70px;
-    background-color: #eeeced;
-    margin: 10px 25px;    
-}
-.top span{
-    color: red;
+    width: 450px; 
+    height: 50px;
+    background-color: #eeeced;  
     font-size: 20px;
+    font-weight: 500;
+    line-height: 50px;
+    color: gray;
+
+}
+#nonepro{
+    width: 450px; 
+    height: 50px;
+    background-color: #eeeced;  
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 50px;
+    color: gray;
+}
+#nonepro i{
+    font-size: 30px;
+}
+#totalproduct span{
+    color: red;
+    font-weight: 700;
+    font-size: 25px;
 }
 #menu ul{
     position: absolute;
@@ -314,6 +375,7 @@ i{
     line-height: 1.5em;
     color: gray;
 }
+
 .row3 i:hover{
     cursor: pointer;
 }
@@ -323,7 +385,7 @@ i{
 }
 /* 第四行样式 */
 .row4{
-    perspective: 1500px;
+    perspective: 2500px;
     margin-top: 20px;
     background-color:#f6f6f6 ;
     background-image: url("../customizer/2.png");

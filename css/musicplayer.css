@@ -17,14 +17,51 @@ ul{
     list-style-type: none;
 }
 #musicplayer{
+    position: relative;
     width: 800px;
     height: 500px;
     margin: 100px auto;
 }
+video{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 800px;
+    height:500px;
+    background-color: black;
+    z-index: 1;
+}
+
+#closemv{
+    position: absolute;
+    top: 0;
+    left:100%;
+    transform: translate(-120%,0);
+    font-size: 20px;
+    color: white;
+    font-family: "icomoon";
+    z-index: 2;
+}
+#closemv:hover{
+    cursor: pointer;
+}
 #top{
+    position: relative;
     height:60px;
-    background-color: rgba(127, 255, 212,1);
+    background-color: orange;
     text-align: center;
+}
+#top span{
+    position: absolute;
+    top: 50%;
+    transform: translate(-120%,-50%);
+    font-size: 30px;
+    font-weight: 700;
+    color: black;
+    font-family: "icomoon";
+}
+#top span:hover{
+    cursor: pointer;
 }
 #searchbox{
     width:300px;
