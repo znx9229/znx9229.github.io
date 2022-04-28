@@ -11,7 +11,7 @@ window.addEventListener('scroll', function(){
     else{
         $(".top").removeClass("topfixed");
     }
-})
+});
 
 // 一、用js（两种主要方法）
 // var searchimg = document.getElementById("search-img");
@@ -103,6 +103,7 @@ var $searchinput = $("#search-text");
 var $storediv = $("#store");
 console.log($storediv)
 console.log($storediv.find("#store-img"))
+console.log("分割线------------------------------")
 var $storelist = $("#store-list");
 var $menudiv = $("#menu");
 var $menu = $("#menu ul");
@@ -200,25 +201,21 @@ $row2button.click(function(){
 var $row3eva = $(".row3 i");
 $row3eva.click(function(){
     if($(this).css('color') == "rgb(128, 128, 128)"){
-        $(this).css({"color":"red"});
         // console.log($(this).text());
         if($(this).text() ==""){
             alert("已将该商品设为【喜爱】\n(之后会推选同类商品！)");
+            $(this).css({"color":"red"});
         }
-        else if($(this).text() ==""){
-            alert("已加入购物车！");
-        }
-        else{
+        else if($(this).text() ==""){
             alert("购买此商品！\n网页建设中...");
+            $(this).css({"color":"red"});
         }
     }
     else{
-        $(this).css({"color":"gray"});
+       
         if($(this).text() ==""){
             alert("已将该商品移除【喜爱】！");
-        }
-        else if($(this).text() ==""){
-            alert("已从购物车移除！");
+            $(this).css({"color":"gray"});
         }
     }  
 })
@@ -237,6 +234,9 @@ $row3eva.click(function(){
     //         console.log(row3eva_dom_list[x]); 
     //     } 
     // }
+
+
+
 
 
 
