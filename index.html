@@ -8,6 +8,8 @@
     <script src="js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="logo/favicon.ico">
+    <script src="js/vue.js"></script>
+    
 </head>
 <body>
     <div class="top">
@@ -15,7 +17,7 @@
         <div>
             <a href="#">主页</a>
             <a href="#">商铺</a>
-            <a href="#">商品</a>
+            <a href="#showproduct">商品</a>
         </div>
         <div>
             <div id="search">
@@ -25,29 +27,32 @@
             <div id="store" >
 
                 <div id="store-list">
-                    <p><span>购物车</span></p>
-                    <ul>
-                        <li>
-                            <div><img src="store/1.jpg" alt=""></div>
+                    <div id="storelist-head">
+                        <p><span>购物车</span></p>
+                    </div>
+                    
+                    <ul id="cart">
+                        <li v-for="item in cartlist" class="clear">
+                            <div><img :src="item.pic" alt=""></div>
                             <div class="storeproduct">
-                            <p>手机型号:Iphone 13<br>
-                            参数:6.1英寸,ios15<br>
-                            价格:￥8000</p>
-                        </div>
-                        </li>
-                        <li>
-                            <div><img src="store/1.jpg" alt=""></div>
-                            <div class="storeproduct">
-                            <p>手机型号:Hawei pro13 <br>
-                            参数:6.7英寸,Harmony<br>
-                            价格:￥6000</p>
-                        </div>
-                        </li>
-                        <li>
+                            <p>{{item.name}}<br>
+                            {{item.dec}}<br>
+                            价格：￥{{item.price}}<br>
+                            <i @click="deletepro(item.id,item.price)">移除</i>
+                            </p>
+                            </div>
+                        </li>     
+                        <li id="lastli" class="clear" v-if="cartlist.length>0">
                             <div id="totalproduct">
-                            <p>总计商品2件<br>
-                            <span>合计金额:￥14000</span></p>   
+                            总计商品<span>{{cartlist.length}}</span>件
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            合计金额<span>{{totalprice}}</span>元
                             </div>  
+                        </li> 
+                        <li v-else>
+                            <div id="nonepro">
+                                <span>您的购物车空空如也！</span><i></i>
+                            </div>      
                         </li> 
                     </ul>  
                 </div>
@@ -142,65 +147,35 @@
             </div>
         </div>          
     </div>
-    <div class="row3 w clear">
+    <div class="row3 w clear" id="showproduct" >
         <h2>产品</h2>
         <p>几款核心产品将在这里展示,包括各个品牌的最新产品</p>
-        <div class="clear">
-            <div class="proimg">
-            <img src="product/1.jpg" alt="">
-            <hr>
-            <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-            <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
-            </div>
-
-            <div class="proimg">
-            <img src="product/2.jpg" alt="">
-            <hr>
-            <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-            <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
-            </div>
-
-            <div class="proimg">
-            <img src="product/3.jpg" alt="">
-            <hr>
-            <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-            <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
-            </div>
-
-            <div class="proimg">
-            <img src="product/4.jpg" alt="">
-            <hr>
-            <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-            <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
+        <div class="clear" id="box1">
+            <div class="proimg" v-for="item in row1" :key="item.id">
+                <img :src="item.pic" alt="">
+                <hr>
+                <p><span>{{item.name}}</span><br>价格：￥{{item.price}}<br>{{item.dec}}</p>
+                <div class="pro-eva">
+                    <i class="first"></i>
+                    <i @click="lovepro(item.id,item.price)"  :ref="item.id"></i>
+                    <i></i>
+                </div>
             </div>
         </div>
-        <div class="proimg">
-        <img src="product/5.jpg" alt="">
-        <hr>
-        <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-        <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
+        <div class="clear" id="box2">
+            <div class="proimg" v-for="item in row2"  :key="item.id">
+                <img :src="item.pic" alt="">
+                <hr>
+                <p><span>{{item.name}}</span><br>价格：￥{{item.price}}<br>{{item.dec}}</p>
+                <div class="pro-eva">
+                    <i class="first"></i>
+                    <i @click="lovepro2(item.id,item.price)" :ref="item.id"></i>
+                    <i></i>
+                </div>
+            </div>
         </div>
+        
 
-        <div class="proimg">
-        <img src="product/6.jpg" alt="">
-        <hr>
-        <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-        <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
-        </div>
-
-        <div class="proimg">
-        <img src="product/7.jpg" alt="">
-        <hr>
-        <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-        <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
-        </div>
-
-        <div class="proimg">
-        <img src="product/3.jpg" alt="">
-        <hr>
-        <p><span>苹果(Apple)Iphone11</span><br>价格:￥4999<br>A14仿生芯片、6.1英寸</p>
-        <div class="pro-eva"><i class="first"></i><i></i><i></i></div>
-        </div>
     </div>
     <div class="row4 w">
         <h1>核酸卡片展示</h1>
@@ -220,7 +195,7 @@
             </div>
             <div id="right-img">
                 <img src="bg/2.JPG" alt="">
-            </div>  
+            </div>
         </div>
         <div id="card2">
             <img src="bg/2.JPG" alt="" id="card2-1"> 
@@ -231,6 +206,138 @@
     <div class="bottom w">
         <h1>底部留白</h1>
     </div>
+    <script>
+        var productlist1=[
+            {id:1,
+            pic:"product/1.jpg",
+            name:"苹果(Apple)Iphone4",
+            price:5999,
+            dec:"A14仿生芯片、6.1英寸"},
+            {id:2,
+            pic:"product/2.jpg",
+            name:"华为4pro",
+            price:4999,
+            dec:"A14仿生芯片、6.1英寸"},
+            {id:3,
+            pic:"product/3.jpg",
+            name:"小米4",
+            price:3000,
+            dec:"A14仿生芯片、6.1英寸"},
+            {id:4,
+            pic:"product/4.jpg",
+            name:"OPPO4",
+            price:4999,
+            dec:"A14仿生芯片、6.1英寸"}
+        ];
+        var productlist2 = [
+            {id:5,
+            pic:"product/5.jpg",
+            name:"中心ZTE-pro",
+            price:5050,
+            dec:"A14仿生芯片、6.1英寸"},
+            {id:6,
+            pic:"product/6.jpg",
+            name:"魅族-plus",
+            price:3200,
+            dec:"A14仿生芯片、6.1英寸"},
+            {id:7,
+            pic:"product/7.jpg",
+            name:"一加-plus",
+            price:5000,
+            dec:"A14仿生芯片、6.1英寸"},
+            {id:8,
+            pic:"product/3.jpg",
+            name:"三星-pro",
+            price:6600,
+            dec:"A14仿生芯片、6.1英寸"}
+        ];
+        var vue1 = new Vue({
+            el:"#box1",
+            data:{
+                row1:productlist1
+            },
+            methods:{
+                lovepro(id,price){
+                    console.log(`成功获取被点击的商品id为${id}`);
+                    this.row1.some(item => {
+                        if(item.id==id){ 
+                            console.log("成功获取商品对象");
+                            console.log(item);
+                            // 这里this都指的vue对象，因为用了箭头函数
+                            // console.log(this);
+                            if( vue3.cartlist.some(cartitem => {return cartitem==item})){                              
+                                alert("商品已在购物车中！");   
+                            }else{
+                                vue3.cartlist.push(item);
+                                alert("已经将商品加入购物车"); 
+                                vue3.totalprice += price;
+                                // 通过refs拿到被点击的DOM，注意：vue1.$refs[`${id}`]
+                                // 获取到还是一个数组，因为前面ref绑定了一个唯一的id，所以数组里元素就1个
+                                // 再取下[0]即可拿到对应DOM
+                                console.log(this.$refs);
+                                this.$refs[`${id}`][0].style.color="red";
+                            }
+                            console.log( vue3.cartlist)   
+                            return true;
+                        };
+                    });
+                    
+                }
+            }
+        });
+        var vue2 = new Vue({
+            el:"#box2",
+            data:{
+                row2:productlist2
+            },
+            methods:{
+                lovepro2(id,price){
+                    console.log(`成功获取被点击的商品id为${id}`);
+                    this.row2.some(item => {
+                        if(item.id==id){ 
+                            console.log("成功获取商品对象");
+                            console.log(item);
+                            if(vue3.cartlist.some(cartitem => {return cartitem==item})){                              
+                                alert("商品已在购物车中！");   
+                            }else{
+                                vue3.cartlist.push(item);
+                                alert("已经将商品加入购物车"); 
+                                vue3.totalprice += price;
+                                console.log(this.$refs);
+                                this.$refs[`${id}`][0].style.color="red";
+                            };
+                            console.log(vue3.cartlist);   
+                            return true;
+                        };
+                    });
+                }
+            }
+        });
+        var vue3 = new Vue({
+            el:"#cart",
+            data:{
+                cartlist:[],
+                totalprice:0
+            },
+            methods:{
+                deletepro(id,price){
+                    if(vue1.row1.some(item => item.id==id)){
+                        console.log("被删除商品在第1行中!");
+                        vue1.$refs[`${id}`][0].style.color="gray";
+                    }else{
+                        console.log("被删除商品在第2行中!");
+                        vue2.$refs[`${id}`][0].style.color="gray";
+                    }
+                    // 更新cartlist重新渲染
+                    this.cartlist = this.cartlist.filter(item => item.id!=id);
+                    console.log(this.cartlist);
+                    vue3.totalprice -= price; 
+                    console.log(`已将该商品移除购物车！`);
+                },
+            
+            }
+        })
+    </script>
     <script src="js/index.js"></script>
 </body>
 </html>
