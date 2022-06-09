@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZNX-shoppingmall-index</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/index copy.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <link rel="shortcut icon" href="logo/favicon.ico">
+    <script src="js/vue.js"></script>
+    <style>
+      main{
+        padding-top: 50px;
+      }
+      /* body{
+        display: flex;
+
+      } */
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div>
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">Brand</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li ><a href="login.html">登录</a></li>
+                <li>
+                  <a id="seecart" data-toggle="modal" data-target="#myModal">购物车</a>
+                </li>
+                <li><a href="index-1.html">旧网页</a></li>
+                <li><a href="#row-2">商品</a></li>
+              </ul>
+              <form class="navbar-form navbar-right">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+              </form>
+            </div><!-- /.container-fluid -->
+          </nav>
+    </header>
+   
+    <main>
+      <section>
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">购物车</h4>
+              </div>
+              <div class="modal-body">
+                <section id="cart">
+                  <div id="showcart">
+                    <div class="container" v-for="item in cartlist" :key="item.id"> 
+                      <img class="img-responsive" :src="item.pic" alt="加载异常" > 
+                      <div id="proinfo">
+                        {{item.name}}<br>
+                        {{item.dec}}<br>
+                        数量:
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary"  @click = "item.counts++">+</button>
+                          <button type="button" class="btn btn-primary disabled"><span>{{item.counts}}</span></button>
+                          <button type="button" class="btn btn-primary"  @click = "item.counts>1? item.counts-- : null">-</button>
+                        </div>
+                        <br>
+                        价格:￥{{item.price*item.counts}}<br>
+                        <button type="button" class="btn btn-warning" @click="deletepro(item.id,item.price)">移除</button>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="well" v-if="cartlist.length>0">
+                    总计商品<span>{{cartlist.length}}</span>类共<span>{{numbers}}</span>件
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    合计金额<span>{{totalprice}}</span>元
+                  </div>
+                  <div class="well" v-else >您的购物车空空如也！</div>
+                </section>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="row-1">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+          </ol>
+        
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="slider/1.jpg" alt="加载异常">
+            </div>
+        
+            <div class="item">
+              <img src="slider/2.jpg" alt="加载异常">
+            </div>
+          </div>
+        
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </section>
+      <section id="row-2">
+        <div class="proimg" v-for="item in row1" :key="item.id">
+            <img :src="item.pic" alt="">
+            <hr>
+            <p><span>{{item.name}}</span><br>价格：￥{{item.price}}<br>{{item.dec}}</p>
+            <div class="pro-eva">
+                <i class="first"></i>
+                <i @click="lovepro(item.id)"  :ref="item.id"></i>
+                <i></i>
+            </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="row4">
+        <div id="card1">
+            <img src="bg/1.JPG" alt="" id="card1-1">
+            <img src="bg/3.JPG" alt="" id="card1-2">
+        </div>
+        <div id="box">
+            <div id="left-img">
+                <img src="bg/1.JPG" alt="">
+            </div>
+            <div id="front">
+                <img src="bg/4.JPG" alt="">
+            </div>    
+            <div id="back">
+                <img src="bg/3.JPG" alt="" > 
+            </div>
+            <div id="right-img">
+                <img src="bg/2.JPG" alt="">
+            </div>
+        </div>
+        <div id="card2">
+            <img src="bg/2.JPG" alt="" id="card2-1"> 
+            <img src="bg/4.JPG" alt="" id="card2-2"> 
+        </div>           
+      </div>
+    </footer> 
+    <script>
+        var productlist1=[
+            {id:1,
+            pic:"product/1.jpg",
+            name:"苹果(Apple)Iphone4",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:5999},
+            {id:2,
+            pic:"product/2.jpg",
+            name:"华为4pro",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:4999},
+            {id:3,
+            pic:"product/3.jpg",
+            name:"小米4",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:3000},
+            {id:4,
+            pic:"product/4.jpg",
+            name:"OPPO4",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:4999},
+            {id:5,
+            pic:"product/5.jpg",
+            name:"中心ZTE-pro",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:5050},
+            {id:6,
+            pic:"product/6.jpg",
+            name:"魅族-plus",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:3200},
+            {id:7,
+            pic:"product/7.jpg",
+            name:"一加-plus",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:5000},
+            {id:8,
+            pic:"product/3.jpg",
+            name:"三星-pro",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:6600},
+            {id:9,
+            pic:"product/3.jpg",
+            name:"三星-pro1",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:6700},
+            {id:10,
+            pic:"product/3.jpg",
+            name:"三星-pro2",
+            dec:"A14仿生芯片、6.1英寸",
+            counts:1,
+            price:6800},
+        ];
+        var vue1 = new Vue({
+            el:"#row-2",
+            data:{
+                row1:productlist1
+            },
+            methods:{
+                lovepro(id){
+                    console.log(`成功获取被点击的商品id为${id}`);
+                    this.row1.some(item => {
+                        if(item.id==id){ 
+                            console.log("成功获取商品对象");
+                            // 这里this都指的vue对象，因为用了箭头函数
+                            // console.log(this);
+                            if( vue2.cartlist.some(cartitem => {return cartitem==item})){                              
+                                alert("商品已在购物车中！");   
+                            }else{
+                                vue2.cartlist.push(item);
+                                alert("已经将商品加入购物车"); 
+                                // 通过refs拿到被点击的DOM，注意：vue1.$refs[`${id}`]
+                                // 获取到还是一个数组，因为前面ref绑定了一个唯一的id，所以数组里元素就1个
+                                // 再取下[0]即可拿到对应DOM
+                                this.$refs[`${id}`][0].style.color="red";
+                            }
+                            return true;
+                        };
+                    });
+                    
+                }
+            }
+        });
+        var vue2 = new Vue({
+            el:"#cart",
+            data:{
+                cartlist:[],
+               
+            },
+            computed:{
+              totalprice(){
+                let total = 0;
+                this.cartlist.forEach(element => {
+                  total += element.counts*element.price;
+                });
+                return total
+              },
+              numbers(){
+                let num = 0;
+                this.cartlist.forEach(element => {
+                  num += element.counts;
+                });
+                return num
+              }
+            },
+            methods:{
+                deletepro(id,price){
+                    if(vue1.row1.some(item => item.id==id)){
+                        vue1.$refs[`${id}`][0].style.color="gray";
+                    }
+                    // 更新cartlist重新渲染
+                    this.cartlist = this.cartlist.filter(item => item.id!=id);
+                    console.log(`已将该商品移除购物车！`);
+                }, 
+            }
+        })
+    </script>
+    <script src="js/index.js"></script>
+</body>
+</html>
